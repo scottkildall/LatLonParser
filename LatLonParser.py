@@ -34,22 +34,28 @@ def process(inputFilename, outputFilename):
 		# append to output lines list
 		inputStr = inputLines[i]
 
-		# check for leading quote
+		
+		# REMOVE QUOTES
 		if inputStr[0] == '"':
 			secondCharIndex = inputStr[1:].index('"')
 
 			if secondCharIndex == -1:
-				print "Error parsing string at line: " + str(i)
-				return
-
-
-			print secondCharIndex
+				print "Error parsing string at line (bad quote): " + str(i)
+				return			
 			
+			inputStr = inputStr[1:secondCharIndex+1]
 			
-			inputStr = inputStr[1:secondCharIndex]
-			
-			print inputStr
+		# REMOVE PARENS
+		if inputStr[0] == '(':
+			secondCharIndex = inputStr[1:].index(')')
 
+			if secondCharIndex == -1:
+				print "Error parsing string at line (bad paren): " + str(i)
+				return			
+			
+			inputStr = inputStr[1:secondCharIndex+1]
+
+		
  		outputLines.append(inputStr) 
  		
 
